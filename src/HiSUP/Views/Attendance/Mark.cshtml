@@ -52,10 +52,10 @@
                             </label>
                             <select name="sectionId" class="form-select" required>
                                 <option value="">-- Select Section --</option>
-                                @foreach (var section in ViewBag.Sections)
+                                @foreach (var sec in ViewBag.Sections)
                                 {
-                                    <option value="@section.SectionID">
-                                        @section.Course?.CourseTitle - @section.SectionName
+                                    <option value="@sec.SectionID">
+                                        @sec.Course?.CourseTitle - @sec.SectionName
                                     </option>
                                 }
                             </select>

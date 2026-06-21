@@ -1,6 +1,7 @@
 using HiSUP.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using HiSUP.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
