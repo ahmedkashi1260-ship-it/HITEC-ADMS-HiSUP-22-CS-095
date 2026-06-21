@@ -279,3 +279,44 @@ CREATE TABLE FeePayments (
         ON UPDATE NO ACTION
 );
 GO
+
+-- ============================================
+-- Table: LibraryItems
+-- ============================================
+CREATE TABLE LibraryItems (
+    ItemID INT PRIMARY KEY IDENTITY(1,1),
+    Title NVARCHAR(200) NOT NULL,
+    Author NVARCHAR(150) NOT NULL,
+    ISBN NVARCHAR(20) NULL UNIQUE,
+    ItemType NVARCHAR(20) NOT NULL CHECK (ItemType IN ('Book', 'Journal', 'Thesis', 'Magazine')),
+    TotalCopies INT NOT NULL CHECK (TotalCopies >= 0),
+    CopiesAvailable INT NOT NULL CHECK (CopiesAvailable >= 0),
+    Publisher NVARCHAR(100) NULL,
+    PublishedYear INT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    CONSTRAINT CHK_CopiesAvailable CHECK (CopiesAvailable <= TotalCopies)
+);
+GO
+
+-- ============================================
+-- Table: LibraryIssues
+-- ============================================
+CREATE TABLE LibraryIssues (
+    IssueID INT PRIMARY KEY IDENTITY(1,1),
+    ItemID INT NOT NULL,
+    StudentID INT NOT NULL,
+    IssueDate DATETIME DEFAULT GETDATE(),
+    DueDate DATE NOT NULL,
+    ReturnDate DATETIME NULL,
+    FineAmount DECIMAL(8,2) DEFAULT 0 CHECK (FineAmount >= 0),
+    Status NVARCHAR(20) NOT NULL DEFAULT 'Issued' CHECK (Status IN ('Issued', 'Returned', 'Overdue', 'Lost')),
+    CONSTRAINT FK_LibraryIssues_Item FOREIGN KEY (ItemID)
+        REFERENCES LibraryItems(ItemID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT FK_LibraryIssues_Student FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+GO
