@@ -1,0 +1,111 @@
+@model IEnumerable<HiSUP.Models.Student>
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2><i class="fas fa-user-graduate me-2"></i>All Students</h2>
+            <p>Manage and view all registered students</p>
+        </div>
+        <a href="/Student/Create" class="btn btn-light btn-lg">
+            <i class="fas fa-user-plus me-2"></i>Add New Student
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>@TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="table-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-list me-2"></i>Students List (@Model.Count() total)</span>
+        <input type="text" id="searchInput" class="form-control form-control-sm w-25" 
+               placeholder="Search students...">
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0" id="studentsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.StudentID</td>
+                        <td><strong>@student.RollNumber</strong></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div style="width:35px;height:35px;background:linear-gradient(135deg,#1a237e,#42a5f5);
+                                    border-radius:50%;display:flex;align-items:center;justify-content:center;
+                                    color:white;font-weight:700;margin-right:10px;font-size:0.9rem;">
+                                    @student.FirstName.Substring(0, 1)
+                                </div>
+                                @student.FirstName @student.LastName
+                            </div>
+                        </td>
+                        <td>@student.Email</td>
+                        <td>@student.Department?.DeptName</td>
+                        <td>@student.EnrollmentYear</td>
+                        <td>
+                            @if (student.IsActive)
+                            {
+                                <span class="badge-active">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge-inactive">Inactive</span>
+                            }
+                        </td>
+                        <td>
+                            <a href="/Student/Details/@student.StudentID" 
+                               class="btn btn-sm btn-info text-white me-1">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="/Student/Delete/@student.StudentID" 
+                               class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#studentsTable tbody tr');
+            rows.forEach(row => {
+                row.style.display = 
+                    row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
+}
