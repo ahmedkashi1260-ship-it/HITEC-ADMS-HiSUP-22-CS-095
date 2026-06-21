@@ -4,7 +4,7 @@
 🚧 In Development
 
 ## Live Site
-Coming soon
+(https://hitec-adms-hisup-22-cs-095-production.up.railway.app)
 
 ## Team
 | Name | Roll No | Contribution |
