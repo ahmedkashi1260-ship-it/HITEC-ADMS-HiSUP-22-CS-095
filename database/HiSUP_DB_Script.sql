@@ -134,3 +134,30 @@ CREATE TABLE Courses (
         ON UPDATE NO ACTION
 );
 GO
+
+-- ============================================
+-- Table: Sections
+-- ============================================
+CREATE TABLE Sections (
+    SectionID INT PRIMARY KEY IDENTITY(1,1),
+    CourseID INT NOT NULL,
+    FacultyID INT NOT NULL,
+    SectionName NVARCHAR(10) NOT NULL,
+    SemesterTerm NVARCHAR(20) NOT NULL,
+    AcademicYear NVARCHAR(10) NOT NULL,
+    MaxSeats INT CHECK (MaxSeats > 0) DEFAULT 40,
+    SeatsFilled INT DEFAULT 0 CHECK (SeatsFilled >= 0),
+    Schedule NVARCHAR(100) NULL,
+    RoomNumber NVARCHAR(20) NULL,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    CONSTRAINT FK_Sections_Course FOREIGN KEY (CourseID)
+        REFERENCES Courses(CourseID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT FK_Sections_Faculty FOREIGN KEY (FacultyID)
+        REFERENCES Faculty(FacultyID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT CHK_SeatsNotExceeded CHECK (SeatsFilled <= MaxSeats)
+);
+GO
