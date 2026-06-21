@@ -204,3 +204,30 @@ CREATE TABLE Grades (
         ON UPDATE NO ACTION
 );
 GO
+
+-- ============================================
+-- Table: AttendanceRecords
+-- ============================================
+CREATE TABLE AttendanceRecords (
+    AttendanceID INT PRIMARY KEY IDENTITY(1,1),
+    StudentID INT NOT NULL,
+    SectionID INT NOT NULL,
+    AttendanceDate DATE NOT NULL,
+    Status NVARCHAR(10) NOT NULL CHECK (Status IN ('Present', 'Absent', 'Leave')),
+    MarkedBy INT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    CONSTRAINT FK_Attendance_Student FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT FK_Attendance_Section FOREIGN KEY (SectionID)
+        REFERENCES Sections(SectionID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT FK_Attendance_Faculty FOREIGN KEY (MarkedBy)
+        REFERENCES Faculty(FacultyID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT UQ_Student_Section_Date UNIQUE (StudentID, SectionID, AttendanceDate)
+);
+GO
