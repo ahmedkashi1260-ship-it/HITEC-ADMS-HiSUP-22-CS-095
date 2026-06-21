@@ -1,8 +1,199 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Page Header -->
+<div class="page-header">
+    <h2><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</h2>
+    <p>Welcome to HITEC Smart University Portal — HiSUP</p>
+</div>
+
+<!-- Stat Cards Row 1 -->
+<div class="row g-4 mb-4">
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card blue">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">245</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+                <i class="fas fa-user-graduate stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card green">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Total Faculty</div>
+                </div>
+                <i class="fas fa-chalkboard-teacher stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card orange">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">89</div>
+                    <div class="stat-label">Total Courses</div>
+                </div>
+                <i class="fas fa-book stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card purple">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Departments</div>
+                </div>
+                <i class="fas fa-building stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card red">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">18</div>
+                    <div class="stat-label">Fee Defaulters</div>
+                </div>
+                <i class="fas fa-exclamation-triangle stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card teal">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Library Books</div>
+                </div>
+                <i class="fas fa-book-open stat-icon"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="table-card">
+            <div class="card-header">
+                <i class="fas fa-bolt me-2"></i>Quick Actions
+            </div>
+            <div class="p-4">
+                <div class="row g-3">
+                    <div class="col-md-2 col-sm-4">
+                        <a href="/Student/Create" class="btn btn-primary w-100 py-3">
+                            <i class="fas fa-user-plus d-block mb-1" style="font-size:1.5rem;"></i>
+                            Add Student
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <a href="/Enrollment" class="btn btn-success w-100 py-3">
+                            <i class="fas fa-clipboard-list d-block mb-1" style="font-size:1.5rem;"></i>
+                            Enrollment
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <a href="/FeePayment" class="btn btn-warning w-100 py-3 text-white">
+                            <i class="fas fa-money-bill d-block mb-1" style="font-size:1.5rem;"></i>
+                            Fee Payment
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <a href="/Attendance" class="btn btn-info w-100 py-3 text-white">
+                            <i class="fas fa-calendar-check d-block mb-1" style="font-size:1.5rem;"></i>
+                            Attendance
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <a href="/Library" class="btn btn-secondary w-100 py-3">
+                            <i class="fas fa-book-open d-block mb-1" style="font-size:1.5rem;"></i>
+                            Library
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <a href="/Report/Results" class="btn btn-danger w-100 py-3">
+                            <i class="fas fa-chart-bar d-block mb-1" style="font-size:1.5rem;"></i>
+                            Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity + Alerts -->
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="table-card">
+            <div class="card-header">
+                <i class="fas fa-clock me-2"></i>Recent Enrollments
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ali Khan</td>
+                            <td>Database Systems</td>
+                            <td><span class="badge-active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sara Malik</td>
+                            <td>Web Engineering</td>
+                            <td><span class="badge-active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Ahmed Raza</td>
+                            <td>OOP</td>
+                            <td><span class="badge-pending">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>Fatima Zahra</td>
+                            <td>Data Structures</td>
+                            <td><span class="badge-active">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="table-card">
+            <div class="card-header" style="background: linear-gradient(135deg, #b71c1c, #ef5350);">
+                <i class="fas fa-exclamation-triangle me-2"></i>Alerts
+            </div>
+            <div class="p-3">
+                <div class="alert alert-warning d-flex align-items-center mb-2" role="alert">
+                    <i class="fas fa-money-bill-wave me-2"></i>
+                    <div><strong>18 students</strong> have pending fee payments</div>
+                </div>
+                <div class="alert alert-danger d-flex align-items-center mb-2" role="alert">
+                    <i class="fas fa-book me-2"></i>
+                    <div><strong>5 books</strong> are overdue in library</div>
+                </div>
+                <div class="alert alert-info d-flex align-items-center mb-2" role="alert">
+                    <i class="fas fa-calendar me-2"></i>
+                    <div><strong>Exams</strong> scheduled next week</div>
+                </div>
+                <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <div><strong>Database backup</strong> completed successfully</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
