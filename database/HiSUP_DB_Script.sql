@@ -320,3 +320,39 @@ CREATE TABLE LibraryIssues (
         ON UPDATE NO ACTION
 );
 GO
+
+-- ============================================
+-- Table: Hostels
+-- ============================================
+CREATE TABLE Hostels (
+    HostelID INT PRIMARY KEY IDENTITY(1,1),
+    HostelName NVARCHAR(100) NOT NULL UNIQUE,
+    HostelType NVARCHAR(10) NOT NULL CHECK (HostelType IN ('Boys', 'Girls')),
+    TotalRooms INT NOT NULL CHECK (TotalRooms > 0),
+    RoomCapacity INT NOT NULL CHECK (RoomCapacity > 0),
+    Warden NVARCHAR(100) NULL,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+GO
+
+-- ============================================
+-- Table: HostelAllotments
+-- ============================================
+CREATE TABLE HostelAllotments (
+    AllotmentID INT PRIMARY KEY IDENTITY(1,1),
+    StudentID INT NOT NULL UNIQUE,
+    HostelID INT NOT NULL,
+    RoomNumber NVARCHAR(10) NOT NULL,
+    AllotmentDate DATETIME DEFAULT GETDATE(),
+    VacateDate DATETIME NULL,
+    Status NVARCHAR(20) NOT NULL DEFAULT 'Active' CHECK (Status IN ('Active', 'Vacated')),
+    CONSTRAINT FK_HostelAllotments_Student FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT FK_HostelAllotments_Hostel FOREIGN KEY (HostelID)
+        REFERENCES Hostels(HostelID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+GO
