@@ -41,5 +41,8 @@ public class ApplicationDbContext : IdentityDbContext
         // Enrollment composite index
         builder.Entity<Enrollment>()
             .HasIndex(e => new { e.StudentID, e.SectionID });
+
+        // Map AuditLogs DbSet to the actual table name "AuditLog" (singular)
+        builder.Entity<AuditLog>().ToTable("AuditLog");
     }
 }
