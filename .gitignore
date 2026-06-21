@@ -1,0 +1,25 @@
+# Visual Studio / .NET build files
+bin/
+obj/
+*.user
+.vs/
+
+# Database files
+*.mdf
+*.ldf
+*.bak
+
+# Secrets - NEVER commit these
+appsettings.Production.json.local
+*.pfx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
