@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Attendance Report";
+}
+
+<div class="page-header">
+    <div>
+        <h2><i class="fas fa-chart-bar me-2"></i>Attendance Report</h2>
+        <p>Summary of attendance percentage per student</p>
+    </div>
+</div>
+
+<div class="table-card">
+    <div class="card-header">
+        <i class="fas fa-list me-2"></i>Student Attendance Summary
+    </div>
+    <div class="table-responsive">
+        @if (Model != null && ((IEnumerable<dynamic>)Model).Any())
+        {
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student</th>
+                        <th>Total Classes</th>
+                        <th>Present</th>
+                        <th>Absent</th>
+                        <th>Leave</th>
+                        <th>Attendance %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in (IEnumerable<dynamic>)Model)
+                    {
+                        <tr>
+                            <td>@row.RollNumber</td>
+                            <td>@row.StudentName</td>
+                            <td>@row.TotalClasses</td>
+                            <td><span class="badge bg-success">@row.Present</span></td>
+                            <td><span class="badge bg-danger">@row.Absent</span></td>
+                            <td><span class="badge bg-warning text-dark">@row.Leave</span></td>
+                            <td>
+                                @if (row.Percentage < 75)
+                                {
+                                    <span class="badge-inactive">@row.Percentage%</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-active">@row.Percentage%</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="p-4 text-center text-muted">
+                <i class="fas fa-info-circle fa-3x mb-3"></i>
+                <p>No attendance records found yet.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="alert alert-info mt-3">
+    <i class="fas fa-database me-2"></i>
+    <strong>Note:</strong> This report mirrors the logic in the <code>vw_AttendanceShortfall</code> database view
+    and the <code>fn_GetAttendancePercentage</code> function — students below 75% are highlighted.
+</div>

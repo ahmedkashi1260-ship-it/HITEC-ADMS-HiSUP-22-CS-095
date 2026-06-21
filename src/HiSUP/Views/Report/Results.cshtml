@@ -1,0 +1,71 @@
+@model IEnumerable<HiSUP.Models.Grade>
+@{
+    ViewData["Title"] = "Results Report";
+}
+
+<div class="page-header">
+    <div>
+        <h2><i class="fas fa-chart-line me-2"></i>Results Report</h2>
+        <p>All published grades, ranked by grade point</p>
+    </div>
+</div>
+
+<div class="table-card">
+    <div class="card-header">
+        <i class="fas fa-list me-2"></i>Results (@Model.Count() records)
+    </div>
+    <div class="table-responsive">
+        @if (Model.Any())
+        {
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Student</th>
+                        <th>Course</th>
+                        <th>Marks</th>
+                        <th>Grade</th>
+                        <th>Grade Point</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int rank = 1; }
+                    @foreach (var grade in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (rank <= 3)
+                                {
+                                    <span class="badge bg-warning text-dark">#@rank</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">#@rank</span>
+                                }
+                            </td>
+                            <td>@grade.Enrollment?.Student?.FirstName @grade.Enrollment?.Student?.LastName</td>
+                            <td>@grade.Enrollment?.Section?.Course?.CourseTitle</td>
+                            <td>@grade.MarksObtained</td>
+                            <td><span class="badge bg-primary">@grade.LetterGrade</span></td>
+                            <td>@grade.GradePoint</td>
+                        </tr>
+                        rank++;
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="p-4 text-center text-muted">
+                <i class="fas fa-info-circle fa-3x mb-3"></i>
+                <p>No results published yet.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="alert alert-info mt-3">
+    <i class="fas fa-database me-2"></i>
+    <strong>Note:</strong> A full top-student-per-department ranking using <code>DENSE_RANK</code> and a
+    recursive CTE is implemented in <code>database/advanced_sql/cte_queries.sql</code> and demonstrated directly in SSMS.
+</div>
