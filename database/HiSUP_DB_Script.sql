@@ -182,3 +182,25 @@ CREATE TABLE Enrollments (
     CONSTRAINT UQ_Student_Section UNIQUE (StudentID, SectionID)
 );
 GO
+
+-- ============================================
+-- Table: Grades
+-- ============================================
+CREATE TABLE Grades (
+    GradeID INT PRIMARY KEY IDENTITY(1,1),
+    EnrollmentID INT NOT NULL UNIQUE,
+    MarksObtained DECIMAL(5,2) NULL CHECK (MarksObtained >= 0 AND MarksObtained <= 100),
+    LetterGrade NVARCHAR(2) NULL,
+    GradePoint DECIMAL(3,2) NULL CHECK (GradePoint >= 0 AND GradePoint <= 4.0),
+    GradedDate DATETIME NULL,
+    GradedBy INT NULL,
+    CONSTRAINT FK_Grades_Enrollment FOREIGN KEY (EnrollmentID)
+        REFERENCES Enrollments(EnrollmentID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT FK_Grades_Faculty FOREIGN KEY (GradedBy)
+        REFERENCES Faculty(FacultyID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+GO
